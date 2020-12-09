@@ -1,5 +1,6 @@
 # MP_Lake
-Metro Conquest (Rush / SQDM Area)
+Metro Conquest (Rush / SQDM Area)<br>
+Back To Karkand DLC required.
 
 <img src="https://community.veniceunleashed.net/uploads/default/original/1X/20b1649bdccdf266d7042c070a9c1f68a5ff988f.jpeg"/>
 <img src="https://community.veniceunleashed.net/uploads/default/original/1X/af5fdaf1dbca0503360f14c99fd63a79ccb805b5.jpeg"/>
