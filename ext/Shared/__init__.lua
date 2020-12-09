@@ -34,4 +34,5 @@ function OnLevelDestroy()
 	entityResourceEvent = nil
 	cpBlueprintCallback = nil
 	bundleHook = nil
+	
 end

@@ -108,10 +108,13 @@ entityResourceEvent = Events:Subscribe('Level:RegisterEntityResources', function
 	if subWorldDataCallback ~= nil then
 		subWorldDataCallback:Deregister()
 	end
-	entityResourceEvent:Unsubscribe()
 	if cpBlueprintCallback ~= nil then
 		cpBlueprintCallback:Deregister()
 	end
+	if bundleHook ~= nil then
+		bundleHook:Uninstall()
+	end
+	entityResourceEvent:Unsubscribe()
 	
 end)
 
@@ -133,7 +136,6 @@ bundleHook = Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bu
 		
         hook:Pass(bundlesCopy, compartment)
 		
-		bundleHook:Uninstall()
     end
 	
 end)
