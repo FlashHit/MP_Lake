@@ -5,6 +5,9 @@ local cqLogicPartitionGuid = Guid('F5DE48B8-29ED-4E73-B040-82637BE0E81C')
 
 cpBlueprintCallback = ResourceManager:RegisterInstanceLoadHandler(Guid("6FF061D3-B464-11E0-A8ED-AC9707C24C08"), Guid('0EBE4C00-9840-4D65-49CB-019C23BBC66B'), function(instance)
 
+	if SharedUtils:GetCurrentGameMode() ~= "ConquestSmall0" or SharedUtils:GetLevelName() ~= "Levels/MP_Subway/MP_Subway" then
+		return
+	end
 	-- CapturePoints B and C normally use a 4m flagpole because they have to fit inside the metro. 
 	-- Wait for the normal blueprint to load to replace the CapturePointPrefab4m blueprint with the normal one.
 	local cpBlueprint = SpatialPrefabBlueprint(instance)

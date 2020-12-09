@@ -24,13 +24,14 @@ end)
 -- Deregistering, uninstalling and uninstalling in case the next level isn't MP_Subway
 function OnLevelDestroy()
 
-    entityResourceEvent:Unsubscribe()
+    -- entityResourceEvent:Unsubscribe()
     -- bundleMounterEvent:Unsubscribe()
 	-- bundleHook:Uninstall()
-    subWorldDataCallback:Deregister()
-    cpBlueprintCallback:Deregister()
+    -- subWorldDataCallback:Deregister()
+    -- cpBlueprintCallback:Deregister()
 	
 	subWorldDataCallback = nil
 	entityResourceEvent = nil
 	cpBlueprintCallback = nil
+	bundleHook = nil
 end

@@ -17,10 +17,11 @@ subWorldDataCallback = ResourceManager:RegisterInstanceLoadHandler(Guid('0964415
     subWorldData:MakeWritable()
 
     local rhibBlueprint = VehicleBlueprint(ResourceManager:SearchForDataContainer("Vehicles/RHIB/RHIB"))
-	
+
     for _, INFO in pairs(CONFIG.BOATS) do
         CreateVehicleSpawnFromMenu(rhibBlueprint, INFO.POS, 'ID_P_VNAME_RIB', INFO.TEAM, 50, subWorldData, INFO.LINK, INFO.GUID1, INFO.GUID2, INFO.GUID3, INFO.GUID4, INFO.ID, INFO.CAM)
 	end
+	
 end)
 
 function CreateVehicleSpawnFromMenu(blueprint, transform, name, team, icon, subWorldData, linkedCpGuid, randomGuid1, randomGuid2, randomGuid3, randomGuid4, id, camPos)
@@ -71,6 +72,7 @@ function CreateVehicleSpawnFromMenu(blueprint, transform, name, team, icon, subW
     partition:AddInstance(characterSpawnData)
     partition:AddInstance(alternateSpawnEntityData)
     partition:AddInstance(vehicleCameraEntityData)
+	
 end
 
 -- In order for the custom spawnData to be usable we need to register it with the engine.
@@ -102,28 +104,38 @@ entityResourceEvent = Events:Subscribe('Level:RegisterEntityResources', function
     levelData:MakeWritable()
     -- Exchanging MP_Subway materialGrid with XP1_003 materialGrid
     levelData.runtimeMaterialGrid = MaterialGridData(ResourceManager:FindInstanceByGuid(Guid('8557DB6F-02B8-C634-5004-FC1A33B409BE'), Guid('A34BBB2D-B82B-F932-D2A8-0B26E7D6ABEF')))
-
+	
+	if subWorldDataCallback ~= nil then
+		subWorldDataCallback:Deregister()
+	end
+	entityResourceEvent:Unsubscribe()
+	if cpBlueprintCallback ~= nil then
+		cpBlueprintCallback:Deregister()
+	end
+	
 end)
-
 
 bundleHook = Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compartment)
 
-    if #bundles == 1 and bundles[1] == 'Levels/MP_Subway/Conquest_Small' then
-
+    if #bundles == 1 and bundles[1] == 'Levels/MP_Subway/MP_Subway' and SharedUtils:GetCurrentGameMode() == "ConquestSmall0" then
+	
         print("injecting bundles")
 
 		-- Mount sharqi bundles that include the RHIB boat bundles
 		ResourceManager:MountSuperBundle('XP1Chunks')
-		ResourceManager:MountSuperBundle('levels/XP1_003/XP1_003')
+		ResourceManager:MountSuperBundle('Levels/XP1_003/XP1_003')
 		
-        bundles = {
-        'levels/XP1_003/XP1_003',
-        'levels/XP1_003/CQ_S',
-        bundles[1],
+        local bundlesCopy = {
+        'Levels/XP1_003/XP1_003',
+        'Levels/XP1_003/CQ_S',
+        'Levels/MP_Subway/MP_Subway'
         }
-
-        hook:Pass(bundles, compartment)
+		
+        hook:Pass(bundlesCopy, compartment)
+		
+		bundleHook:Uninstall()
     end
+	
 end)
 
 end
