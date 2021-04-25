@@ -3,7 +3,7 @@
 	"Authors": ["Flash_Hit", "Janssent"],
 	"Description": "Play Metro Conquest on the Rush / Squad Deathmatch area",
 	"URL": "",
-	"Version": "1.0.1",
+	"Version": "1.1.0",
 	"HasWebUI": false,
 	"HasVeniceEXT": true,
 	"Dependencies": {
